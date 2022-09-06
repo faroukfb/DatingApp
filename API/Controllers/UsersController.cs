@@ -24,7 +24,11 @@ namespace API.Controllers
             var users= await _context.Users.ToListAsync();
             return users;
         }
-         [HttpGet("{id}")]
+          
+
+        
+
+        [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>>  GetUser(int id)
         {
             var user= await _context.Users.FindAsync(id);
@@ -34,4 +38,6 @@ namespace API.Controllers
             return Ok(user);
         }
     }
+  
+
 }
