@@ -21,8 +21,8 @@ model:any={};
   }
 login()
 {
- this.account.login(this.model).subscribe({next:(response)=>{this.router.navigateByUrl('/mebers');
-this.toastr.success("hello "+this.model.username)
+ this.account.login(this.model).subscribe({next:(response)=>{this.router.navigateByUrl('/members');
+this.toastr.success("hello"+this.model.username)
 },
 error:(erreur) =>{this.toastr.error(erreur.error)
 },
