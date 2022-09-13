@@ -17,6 +17,7 @@ model:any={};
   }
 register(){
   this.account.register(this.model).subscribe({next:(response)=>{
+    console.table(response);
     this.cancel();},
     error:(erreur) =>{this.toastr.error(erreur.error);}
   });

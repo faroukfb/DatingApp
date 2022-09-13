@@ -32,12 +32,12 @@
                 </div>
               </div>
               <form  #loginForm="ngForm" (ngSubmit)="login()" class="form-inline mt-2 mt-md-0" autocomplete="off"  *ngIf="(account.currentUserSource$|async)===null">
-                <input name="username" [(ngModel)]="model.username"
-                class="form-control mr-sm-2" type="text" placeholder="Username">
-                <input name="password" [(ngModel)]="model.password"
+                <input name="username" [(ngModel)]="model.username" required
+                class="form-control mr-sm-2" type="text" placeholder="Username" >
+                <input name="password" [(ngModel)]="model.password" required
                  class="form-control mr-sm-2" type="password" placeholder="Password">
 
-                <button class="btn btn-success my-2 my-sm-0" type="submit">login</button>
+                <button class="btn btn-success my-2 my-sm-0" type="submit" [disabled]="!loginForm.form.valid">login</button>
               </form>
             </div>
       

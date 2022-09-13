@@ -36,6 +36,7 @@ get404Error(){
           next:(response)=>{console.log(response)},
           error:(error)=>{console.log(error)}
         })
+        
       }
       get400ValidationError(){
         this.http.post(this.baseUrl+'Account/register',{}).subscribe({
