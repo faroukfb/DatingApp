@@ -18,9 +18,7 @@ return this.http.post(this.BaseUrl+'Account/login',model).pipe(
     (response:User)=>{
       const user=response;
       if(user){
-        localStorage.setItem('user',JSON.stringify(user));
-        this.currentUserSource.next(user);
-      }
+        this.setCurrentUser(user);}
      
     })
     );
@@ -32,9 +30,9 @@ return this.http.post(this.BaseUrl+'Account/login',model).pipe(
     this.currentUserSource.next(null);
 
   }
-setCurrentUser(name:User){
-
-   this.currentUserSource.next(name);
+setCurrentUser(user:User){
+  localStorage.setItem('user',JSON.stringify(user));
+   this.currentUserSource.next(user);
 }
 register(model:any){
   return this.http.post(this.BaseUrl +'Account/register',model).pipe(
@@ -42,8 +40,8 @@ register(model:any){
       (user:User)=>{
        
         if(user){
-          localStorage.setItem('user',JSON.stringify(user));
-          this.currentUserSource.next(user);
+         
+       this.setCurrentUser(user);
         }
        
       })
