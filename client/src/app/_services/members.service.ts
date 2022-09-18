@@ -29,16 +29,16 @@ export class MembersService {
     return this.http.get<Member>(this.BaseUrl+'Users/'+username)
   }
   updateMember(member:Member){
-    return this.http.put(this.BaseUrl +'users',member).pipe(map(()=>{
+    return this.http.put(this.BaseUrl +'Users',member).pipe(map(()=>{
       const index =this.members.indexOf(member)
       this.members[index]=member;
     }));
   }
   setMainPhoto(photoId:number){
-    return this.http.put(this.BaseUrl+"users/set-main-photo/"+photoId,{})
+    return this.http.put(this.BaseUrl+"Users/set-main-photo/"+photoId,{})
 
   }
   deletePhoto(photoId:number){
-    return this.http.delete(this.BaseUrl+"users/delete-photo/"+photoId)
+    return this.http.delete(this.BaseUrl+"Users/delete-photo/"+photoId)
   }
 }

@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-2" *ngFor="let photo of member.photos">
-        <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail p-1">
-        <div class="text-center">
+        <img src="{{photo?.url}}" alt="{{photo?.url}}" class="img-thumbnail p-1" *ngIf="photo" >
+        <div class="text-center" *ngIf="photo" >
             <button class="btn btn-sm" [disabled]="photo.isMain" (click)="setMainPhoto(photo)" [ngClass]='photo.isMain ?"btn-success active":"btn-outline-success"'>Main</button>
-            <button [disabled]="photo.isMain" (click)="deletePhoto(photo.id)" 
+            <button [disabled]="photo.isMain" (click)="deletePhoto(this.photo.id)" 
             class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
         </div>
 

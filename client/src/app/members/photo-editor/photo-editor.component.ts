@@ -1,5 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
+import { Toast } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
 import { Photo } from 'src/app/_models/photo';
@@ -28,7 +29,9 @@ user:User;
   }
   deletePhoto(photoId:number){
     return this.memberserv.deletePhoto(photoId).subscribe(()=>{
-      this.member.photos.filter(x=>x.id!==photoId);
+     this.member.photos= this.member.photos.filter(x=> x.id !== photoId);
+      
+      
     })
   }
   setMainPhoto(photo:Photo){
