@@ -13,6 +13,7 @@ using AutoMapper;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using API.Extensions;
+using API.Helpers;
 
 namespace API.Controllers
 {[Authorize]
@@ -32,10 +33,14 @@ namespace API.Controllers
         }
          [HttpGet]
 
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var users= await _userRepositry.GetMembersAsync();
-         
+            var user=await _userRepositry.GetUserByUsernameAsync(User.GetUsername());
+            userParams.CurrentUsername=user.UserName;
+            if(string.IsNullOrEmpty(userParams.Gender))
+            userParams.Gender=user.Gender == "male" ? "female" : "male";
+            var users= await _userRepositry.GetMembersAsync(userParams);
+          Response.AddPaginationHeader(users.CurrentPage,users.PageSize,users.TotalCount,users.TotalPages);
          
           return Ok( users);
         }
