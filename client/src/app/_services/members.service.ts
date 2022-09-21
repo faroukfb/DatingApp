@@ -73,6 +73,14 @@ export class MembersService {
   deletePhoto(photoId:number){
     return this.http.delete(this.BaseUrl+"Users/delete-photo/"+photoId)
   }
+  addLike(username:string){
+    return this.http.post(this.BaseUrl+'Likes/'+username,{})
+  }
+  getLikes(predicate:string,pageNumber,pageSize){
+    let params=this.getPaginationHeaders(pageNumber,pageSize)
+    params=params.append('predicate',predicate)
+    return this.getPaginatedResult<Partial<Member[]>>(this.BaseUrl+'likes',params)
+  }
   private getPaginationHeaders(pageNumber:number ,pageSize:number){
     let params=new HttpParams();
     
