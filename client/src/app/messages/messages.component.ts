@@ -32,7 +32,7 @@ loadMessages(){
 }
 deleteMessage(id:number){
   this.messageserv.deleteMessage(id).subscribe(()=>{
-    this.messages.splice(this.messages.findIndex(m=>m.id==id),1)
+    this.messages=this.messages.splice(this.messages.findIndex(m=>m.id==id),1)
   })
 }
 pagechanged(event:any){

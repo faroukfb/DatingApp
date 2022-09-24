@@ -16,7 +16,7 @@ using API.Extensions;
 using API.Helpers;
 
 namespace API.Controllers
-{[Authorize]
+{
     public class UsersController:BaseApiController
     {
         private readonly IUserRepositry _userRepositry;
@@ -31,6 +31,7 @@ namespace API.Controllers
           
  
         }
+        [Authorize(Roles = "Admin")]
          [HttpGet]
 
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
@@ -46,7 +47,7 @@ namespace API.Controllers
         }
           
 
-        
+         [Authorize(Roles = "Member")]
 
         [HttpGet("{username}",Name ="GetUser")]
          public async Task<ActionResult<MemberDto>>  GetUser(string username)
@@ -54,6 +55,7 @@ namespace API.Controllers
            return await _userRepositry.GetMemberAsync(username);
    
         }
+        [Authorize]
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto){
             var username=User.GetUsername();
@@ -63,6 +65,7 @@ namespace API.Controllers
             if(await _userRepositry.SaveAllAsync()) return NoContent();
             return BadRequest("Failed to update User");
         }
+        [Authorize]
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file ) {
             var user = await _userRepositry.GetUserByUsernameAsync(User.GetUsername());
@@ -82,6 +85,7 @@ return CreatedAtRoute("GetUser",new {username=user.UserName},_mapper.Map<PhotoDt
 
  return BadRequest("Problem adding Photo");
         }
+        [Authorize]
         [HttpPut("set-main-photo/{photoId}")]
         public async Task<ActionResult> setMainPhoto(int photoId){
             var user = await _userRepositry.GetUserByUsernameAsync(User.GetUsername());
@@ -95,6 +99,7 @@ return CreatedAtRoute("GetUser",new {username=user.UserName},_mapper.Map<PhotoDt
              }
              return BadRequest("fail to set main photo");
         }
+        [Authorize]
         [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> deletePhoto(int photoId){
              var user = await _userRepositry.GetUserByUsernameAsync(User.GetUsername());
